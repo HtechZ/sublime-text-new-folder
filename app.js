@@ -1,16 +1,17 @@
 import express from "express"
 import cors from "cors"
 import mysql from "mysql2/promise"
+import dotenv from "dotenv"
+dotenv.config()
 const app = express()
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 const database = mysql.createPool({
-    user: "sql7832120",
-    password: "gWeuLJ7u4U",
-    host: "sql7.freesqldatabase.com",
-    database: "sql7832120"
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME
 })
-const port = 3000
 
 
 app.post("/register", async (req, res) => {
@@ -26,4 +27,4 @@ app.post("/register", async (req, res) => {
 
 
 
-app.listen(port, () => { })
+app.listen(process.env.PORT || 3000, () => { })
